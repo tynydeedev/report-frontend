@@ -1,17 +1,19 @@
 <template>
-  <nav-bar />
+  <h1>Notes App</h1>
+
   <router-view />
 </template>
 
 <script lang="ts">
   import { defineComponent } from 'vue';
-  import NavBar from './components/NavBar.vue';
 
   export default defineComponent({
-    components: {
-      NavBar,
-    },
+    setup() {},
   });
 </script>
 
-<style></style>
+<style lang="postcss" scoped>
+  h1 {
+    @apply text-3xl text-center;
+  }
+</style>

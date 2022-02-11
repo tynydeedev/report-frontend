@@ -29,7 +29,7 @@
       <button>{{ action }}</button>
     </form>
     <router-link
-      :to="action === 'Sign Up' ? 'signin' : 'signup'"
+      :to="action === 'Sign Up' ? '/notes/signin' : '/notes/signup'"
       @click="reset"
       >{{
         action === 'Sign Up'

@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from './components/Home.vue';
 import Account from './components/notes-app/Account.vue';
+import CreateNote from './components/notes-app/CreateNote.vue';
 import Dashboard from './components/notes-app/Dashboard.vue';
 import NotesApp from './components/notes-app/NotesApp.vue';
-import NotesHome from './components/notes-app/NotesHome.vue';
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -17,11 +17,8 @@ export const router = createRouter({
       component: NotesApp,
       children: [
         {
-          path: '',
-          component: NotesHome,
-        },
-        {
           path: 'signin',
+          alias: '',
           component: Account,
         },
         {
@@ -31,6 +28,10 @@ export const router = createRouter({
         {
           path: 'dashboard',
           component: Dashboard,
+        },
+        {
+          path: 'create',
+          component: CreateNote,
         },
       ],
     },

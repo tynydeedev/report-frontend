@@ -1,8 +1,11 @@
+import { AxiosResponse } from 'axios';
+import { Store } from 'vuex';
 import { HTTP } from './axios-default';
 
 export interface NoteState {
   currentNote: Note;
   all: Note[];
+  auth: boolean;
 }
 
 export interface Note {
@@ -20,6 +23,7 @@ export const notes = {
     return {
       currentNote: {},
       all: [],
+      auth: null,
     };
   },
 
@@ -27,11 +31,28 @@ export const notes = {
     setAllNotes(state: NoteState, data: Note[]) {
       state.all = data;
     },
+
+    setAuth(state: NoteState, status: boolean) {
+      state.auth = status;
+    },
   },
 
   actions: {
-    async getAllNotes(ctx) {
-      const result = await HTTP.get('tasks');
+    async getAllNotes(ctx: Store<NoteState>): Promise<void> {
+      let result: AxiosResponse;
+
+      try {
+        result = await HTTP.get('tasks', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+
+        ctx.commit('setAuth', true);
+      } catch (error) {
+        return ctx.commit('setAuth', false);
+      }
+
       const notes = result.data;
 
       if (!notes.length) return;
